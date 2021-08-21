@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { RecoilRoot } from "recoil";
 import { albumsState } from "./atoms";
-import { TOP_ALBUMS_URL } from "./constants";
+import { TOP_ALBUMS_URL_2 } from "./constants";
 import useFetch, { IApi } from "./custom-hooks";
 import { IAlbum } from "./shared/interfaces";
 import transform from "./utils/transform";
@@ -14,7 +14,7 @@ import { Search } from "./pages/Search";
 interface AppProps {}
 
 const App: React.FC<AppProps> = ({}) => {
-  const { data, error }: IApi<IAlbum[]> = useFetch(TOP_ALBUMS_URL, transform);
+  const { data, error }: IApi<IAlbum[]> = useFetch(TOP_ALBUMS_URL_2, transform);
   const setAlbumData = useSetRecoilState(albumsState);
   if (data) {
     setAlbumData(data);

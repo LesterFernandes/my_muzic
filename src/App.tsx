@@ -24,7 +24,7 @@ const App: React.FC<AppProps> = ({}) => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Landing}></Route>
-        <Route exact path="/about" component={Search}></Route>
+        <Route exact path="/search" component={Search}></Route>
       </Switch>
     </BrowserRouter>
   ) : (

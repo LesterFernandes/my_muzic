@@ -1,30 +1,48 @@
-import React from "react";
-import { Categories } from "../components/Categories";
-import { Featured } from "../components/Featured";
+import React, { useCallback, useMemo } from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { Box, HStack, Image, Center, Wrap, WrapItem } from "@chakra-ui/react";
+import { IAlbum, ICategory } from "../shared/interfaces";
 import { Wrapper } from "../components/Wrapper";
-import { useRecoilValue } from "recoil";
-import { albumsState } from "../atoms";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { albumsState, categoriesState, selCategory, likedAndFeaturedAlbums } from "../atoms";
 
-interface LandingProps {}
+interface LandingProps extends RouteComponentProps {}
 
-export const Landing: React.FC<LandingProps> = ({}) => {
-  const albums = useRecoilValue(albumsState);
-  const title = "Andrewww Sandion chin";
-  const desc = "You deserve good things. With a whooping 10-15% interest rate per annum, grow your savings.";
+export const Landing: React.FC<LandingProps> = ({ history }) => {
+  //const albums = useRecoilValue(albumsState);
+  const categories = useRecoilValue(categoriesState);
+  const saveSelectedCategory = useSetRecoilState(selCategory);
+  const featAlbums = useRecoilValue(likedAndFeaturedAlbums);
+
+  const clickHandler = useCallback(
+    (e: React.MouseEvent, category: ICategory) => {
+      e.stopPropagation();
+      saveSelectedCategory(category);
+      history.push(`/search`);
+      //history.push(`/search/${category.category}`);
+    },
+    []
+  );
 
   return (
-    <>
-      <Wrapper>
-        <Featured albums={albums} />
-        <Categories />
-      </Wrapper>
-      <Box 
-      p={5} shadow="md" borderWidth="1px" flex="1" borderRadius="md"
-      >
-        <Heading fontSize="xl">{title}</Heading>
-        <Text mt={4}>{desc}</Text>
-      </Box>
-    </>
+    <Wrapper>
+      <Wrap spacing="10px" justify="center">
+        {featAlbums.map((album, index) => (
+          <WrapItem key={index}>
+            <Image src={album.image} />
+          </WrapItem>
+        ))}
+      </Wrap>
+      <Wrap spacing="10px" justify="center">
+        {categories.map((category, index) => (
+          <WrapItem key={index} onClick={(e) => clickHandler(e, category)}>
+            <Center w="180px" h="80px" bg="red.200">
+              {category.category}
+            </Center>
+          </WrapItem>
+        ))}
+      </Wrap>
+    </Wrapper>
   );
 };
+

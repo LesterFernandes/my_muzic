@@ -7,6 +7,7 @@ export interface IAlbum {
   releaseDate: string;
   category: string;
   categoryId: string;
+  liked?: boolean;
 }
 
 export interface ICategory {

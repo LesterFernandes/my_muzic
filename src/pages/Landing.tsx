@@ -1,20 +1,34 @@
 import React, { useCallback, useMemo } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { Box, HStack, Image, Center, Wrap, WrapItem } from "@chakra-ui/react";
-import { IAlbum, ICategory } from "../shared/interfaces";
+import { Image, Center, Wrap, WrapItem } from "@chakra-ui/react";
+import { ICategory, IAlbum } from "../shared/interfaces";
 import { Wrapper } from "../components/Wrapper";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { albumsState, categoriesState, selCategory, likedAndFeaturedAlbums } from "../atoms";
+import {
+  categoriesState,
+  selCategory,
+  likedAndFeaturedAlbums,
+  selAlbum,
+} from "../atoms";
 
 interface LandingProps extends RouteComponentProps {}
 
 export const Landing: React.FC<LandingProps> = ({ history }) => {
-  //const albums = useRecoilValue(albumsState);
   const categories = useRecoilValue(categoriesState);
   const saveSelectedCategory = useSetRecoilState(selCategory);
   const featAlbums = useRecoilValue(likedAndFeaturedAlbums);
+  const savedSelectedAlbum = useSetRecoilState(selAlbum);
 
-  const clickHandler = useCallback(
+  const albumClickHandler = useCallback(
+    (e: React.MouseEvent, album: IAlbum) => {
+      e.stopPropagation();
+      savedSelectedAlbum(album);
+      history.push(`/album`);
+    },
+    []
+  );
+
+  const categoryClickHandler = useCallback(
     (e: React.MouseEvent, category: ICategory) => {
       e.stopPropagation();
       saveSelectedCategory(category);
@@ -28,15 +42,18 @@ export const Landing: React.FC<LandingProps> = ({ history }) => {
     <Wrapper>
       <Wrap spacing="10px" justify="center">
         {featAlbums.map((album, index) => (
-          <WrapItem key={index}>
+          <WrapItem key={index} onClick={(e) => albumClickHandler(e, album)}>
             <Image src={album.image} />
           </WrapItem>
         ))}
       </Wrap>
       <Wrap spacing="10px" justify="center">
         {categories.map((category, index) => (
-          <WrapItem key={index} onClick={(e) => clickHandler(e, category)}>
-            <Center w="180px" h="80px" bg="red.200">
+          <WrapItem
+            key={index}
+            onClick={(e) => categoryClickHandler(e, category)}
+          >
+            <Center w="200px" h="150px" bg="red.200">
               {category.category}
             </Center>
           </WrapItem>
@@ -45,4 +62,3 @@ export const Landing: React.FC<LandingProps> = ({ history }) => {
     </Wrapper>
   );
 };
-

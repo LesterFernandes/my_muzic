@@ -1,5 +1,4 @@
 import { useEffect, useReducer } from "react";
-
 export interface IApi<T> {
   data?: T;
   error?: Error;

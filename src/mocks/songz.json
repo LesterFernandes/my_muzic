@@ -1,0 +1,38 @@
+[
+    {
+        "trackId": 1,
+        "trackName": "Near the sun",
+        "plays": "90,335,572",
+        "duration": "2:48"
+    },
+    {
+        "trackId": 2,
+        "trackName": "Away",
+        "plays": "765,234,391",
+        "duration": "2:13"
+    },
+    {
+        "trackId": 3,
+        "trackName": "Funky Thursday",
+        "plays": "190,335,889",
+        "duration": "3:00"
+    },
+    {
+        "trackId": 4,
+        "trackName": "Run",
+        "plays": "55,678,444",
+        "duration": "2:23"
+    },
+    {
+        "trackId": 5,
+        "trackName": "Game over",
+        "plays": "923,451,112",
+        "duration": "3:40"
+    },
+    {
+        "trackId": 6,
+        "trackName": "Stay with me",
+        "plays": "69,601,099",
+        "duration": "3:10"
+    }
+]

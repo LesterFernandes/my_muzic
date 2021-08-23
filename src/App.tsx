@@ -10,6 +10,7 @@ import { IAlbum } from "./shared/interfaces";
 import transform from "./utils/transform";
 import { Landing } from "./pages/Landing";
 import { Search } from "./pages/Search";
+import { AlbumDetails } from "./pages/AlbumDetails";
 
 interface AppProps {}
 
@@ -25,6 +26,7 @@ const App: React.FC<AppProps> = ({}) => {
       <Switch>
         <Route exact path="/" component={Landing}></Route>
         <Route exact path="/search" component={Search}></Route>
+        <Route exact path="/album" component={AlbumDetails}></Route>
       </Switch>
     </BrowserRouter>
   ) : (

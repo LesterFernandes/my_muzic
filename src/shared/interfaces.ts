@@ -19,3 +19,10 @@ export interface ITopAlbums {
   albums: IAlbum[];
   categories: ICategory[];
 }
+
+export interface ISong {
+  trackId: number;
+  trackName: string;
+  duration: string;
+  plays: string;
+}

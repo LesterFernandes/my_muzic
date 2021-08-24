@@ -41,7 +41,6 @@ function useFetch<T = unknown>(
       dispatch({ type: "loading" });
       try {
         const response = await fetch(url, options);
-        //throw new Error(response.statusText);
         if (response.status !== 200 || !response.ok) {
           throw new Error(response.statusText);
         }

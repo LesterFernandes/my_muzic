@@ -11,7 +11,7 @@ export const albumsState = atom({
 
 export const selCategory = atom({
   key: "selCategory",
-  default: { category: "all", categoryId: "" } as ICategory,
+  default: { category: "All", categoryId: "" } as ICategory,
 });
 
 export const selAlbum = atom({
@@ -27,7 +27,7 @@ export const filteredAlbumsState = selector({
     const albums: IAlbum[] = get(albumsState);
     const { category, categoryId }: ICategory = get(selCategory);
     return albums.filter((album) => {
-      if (!categoryId && category === "all") {
+      if (!categoryId && category === "All") {
         return true;
       }
       return album.categoryId === categoryId;
@@ -80,7 +80,7 @@ export const categoriesState = selector({
       },
       [
         {
-          category: "all",
+          category: "All",
           categoryId: "",
         },
       ]

@@ -8,6 +8,7 @@ export interface IAlbum {
   category: string;
   categoryId: string;
   liked?: boolean;
+  thumbnailUrl?: string;
 }
 
 export interface ICategory {

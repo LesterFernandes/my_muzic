@@ -17,8 +17,8 @@ export default ({ feed }: any): IAlbum[] => {
       releaseDate: data["im:releaseDate"].label,
       category: data["category"].attributes.label,
       categoryId: data["category"].attributes["im:id"],
-      liked: false
-      //liked: isLiked(data.id.attributes["im:id"])
+      liked: false,
+      thumbnailUrl: data["im:image"][0].label
     };
   });
   return albums;

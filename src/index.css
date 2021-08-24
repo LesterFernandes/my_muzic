@@ -11,3 +11,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+tr.trackz:hover {
+  background-color: #b2f5ea;
+}
+
+tr.trackz:hover td .play {
+  visibility: visible;
+}
+
+.featured .overlay, .albSearch .overlay {
+  position: absolute;
+  transition: all 0.3s ease;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.featured:hover .overlay, .albSearch:hover .overlay {
+  opacity: 0.8;
+}
+
+.featured .overlayFade {
+  height: 170px;
+  width: 170px;
+  top: 0;
+  background-image: linear-gradient(teal, #191d19);
+}
+
+.albSearch .overlayFade {
+  height: 170px;
+  width: 170px;
+  top: 0;
+  left:0;
+  background-image: linear-gradient(teal, #191d19);
+}
+
+.clearDate::after {
+  background-color: teal!important;
+}
+
+.tealInput:focus, .tealInput:focus-visible {
+  z-index: 1!important;
+  border-color: #319795!important;
+  box-shadow: 0 0 0 1px #319795!important;
+}
+

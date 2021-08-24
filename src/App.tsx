@@ -1,16 +1,15 @@
-import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, useSetRecoilState } from "recoil";
 import { albumsState } from "./atoms";
 import { TOP_ALBUMS_URL_2 } from "./constants";
-import useFetch, { IApi } from "./custom-hooks";
-import { IAlbum } from "./shared/interfaces";
-import transform from "./utils/transform";
+import useFetch, { IApi } from "./custom-hooks/fetch";
+import { AlbumDetails } from "./pages/AlbumDetails";
 import { Landing } from "./pages/Landing";
 import { Search } from "./pages/Search";
-import { AlbumDetails } from "./pages/AlbumDetails";
+import { IAlbum } from "./shared/interfaces";
+import transform from "./utils/transform";
 
 interface AppProps {}
 

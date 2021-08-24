@@ -2,7 +2,7 @@ import { atom, selector } from "recoil";
 import { IAlbum, ICategory } from "./shared/interfaces";
 import _ from "lodash";
 
-//-------------------------ATOMS--------------------------------
+//-----------ATOMS----------
 
 export const albumsState = atom({
   key: "albumsState",
@@ -19,7 +19,7 @@ export const selAlbum = atom({
   default: {} as IAlbum,
 })
 
-//-------------------------SELECTORS-------------------------------------------------
+//-----------SELECTORS------------
 
 export const filteredAlbumsState = selector({
   key: "filteredAlbumsState",
@@ -33,17 +33,6 @@ export const filteredAlbumsState = selector({
       return album.categoryId === categoryId;
     });
   },
-  /* set: ({ get, set }, newValue:any) => {
-    const { albumId, like } = newValue;
-    const albums: IAlbum[] = get(albumsState);
-    const copyAlbums = _.cloneDeep(albums);
-    copyAlbums.forEach((album) => {
-      if (albumId === album.id) {
-        album.liked = like;
-      }
-    });
-    set(albumsState, copyAlbums);
-  }, */
 });
 
 export const likedAndFeaturedAlbums = selector({

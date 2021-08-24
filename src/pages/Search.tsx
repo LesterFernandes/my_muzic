@@ -41,17 +41,6 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
     };
   }, []);
 
-  useEffect(() => {
-    /* if (endDate && startDate) {
-       let start = moment(startDate);
-       let end = moment(endDate);
-       if (end.diff(start)) {
-         console.log(end.format());
-         console.log(albums[0].releaseDate);
-       }
-     } */
-  }, [endDate, startDate]);
-
   const changeHandler = (e: any) => {
     setSearch(e.target.value);
   };
@@ -149,7 +138,7 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
           })
           .map((album, index) => {
             return (
-              <WrapItem key={index} onClick={(e) => albumClickHandler(e, album)}>
+              <WrapItem key={index}>
                 <Box
                   className="albSearch"
                   boxShadow="md"
@@ -160,7 +149,7 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
                   pos="relative"
                 >
                   <LazyLoad height={210} offset={10}>
-                    <Image src={album.image} />
+                    <Image src={album.image}/>
                   </LazyLoad>
                   <Grid templateColumns="repeat(5, 1fr)" gap={1}>
                     <GridItem colSpan={4}>
@@ -193,7 +182,7 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
                       </Center>
                     </GridItem>
                   </Grid>
-                  <div className="overlay overlayFade">
+                  <div className="overlay overlayFade" onClick={(e) => albumClickHandler(e, album)}>
                     <Center h="inherit">
                       <Icon
                         boxSize={10}

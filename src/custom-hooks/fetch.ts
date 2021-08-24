@@ -39,14 +39,12 @@ function useFetch<T = unknown>(
 
     const fetchData = async () => {
       dispatch({ type: "loading" });
-
       try {
         const response = await fetch(url, options);
-
+        //throw new Error(response.statusText);
         if (response.status !== 200 || !response.ok) {
           throw new Error(response.statusText);
         }
-
         let data = await response.json();
         data = (transformData?.(data) as T) || (data as T);
         dispatch({ type: "fetched", payload: data });
@@ -56,7 +54,6 @@ function useFetch<T = unknown>(
     };
 
     fetchData();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 

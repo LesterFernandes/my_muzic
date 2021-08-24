@@ -36,7 +36,6 @@ export const Landing: React.FC<LandingProps> = ({ history }) => {
       e.stopPropagation();
       saveSelectedCategory(category);
       history.push(`/search`);
-      //history.push(`/search/${category.category}`);
     },
     []
   );
@@ -48,7 +47,7 @@ export const Landing: React.FC<LandingProps> = ({ history }) => {
 
   return (
     <Wrapper>
-      <Wrap spacing="10px" justify="center" mb="20px">
+      <Wrap spacing="10px" justify="center" pt={6} mb="20px">
         {featAlbums.map((album, index) => (
           <WrapItem key={index} onClick={(e) => albumClickHandler(e, album)}>
             <Box className="featured" w="170px" h="auto" pos="relative">

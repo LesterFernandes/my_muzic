@@ -1,12 +1,24 @@
 import {
-  Avatar, Box, Icon, IconButton, Image, Table, TableCaption, Tbody, Td, Text, Th, Thead, Tr
+  Avatar,
+  Box,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  Table,
+  TableCaption,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import _ from "lodash";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import {
-  BsClock, BsFillPauseFill, BsPlayFill
-} from "react-icons/bs";
+import { BsClock, BsFillPauseFill, BsPlayFill } from "react-icons/bs";
+import { FaItunesNote } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
 import { selAlbum } from "../atoms";
 import { Wrapper } from "../components/Wrapper";
@@ -80,10 +92,7 @@ export const AlbumDetails: React.FC<AlbumDetailsProps> = ({}) => {
     <Wrapper variant="small">
       <Box p={4} display={{ md: "flex" }}>
         <Box flexShrink={0}>
-          <Image
-            width={{ md: 40 }}
-            src={selectedAlbum.image}
-          />
+          <Image width={{ md: 40 }} src={selectedAlbum.image} />
         </Box>
         <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
           <Text
@@ -96,45 +105,57 @@ export const AlbumDetails: React.FC<AlbumDetailsProps> = ({}) => {
             {selectedAlbum.name}
           </Text>
           <Text mt={4} color="gray.500">
-            <Avatar size="xs" name={selectedAlbum.artist} src={selectedAlbum.thumbnailUrl} /> &bull; {selectedAlbum.artist} &bull; {releaseYear}
+            <Avatar
+              size="xs"
+              name={selectedAlbum.artist}
+              src={selectedAlbum.thumbnailUrl}
+            />{" "}
+            &bull; {selectedAlbum.artist} &bull; {releaseYear}
           </Text>
         </Box>
       </Box>
-      <Table variant="simple" colorScheme="teal">
-        <TableCaption>Awesome muzic player</TableCaption>
-        <Thead>
-          <Tr>
-            <Th>#</Th>
-            <Th>TITLE</Th>
-            <Th>PLAYS</Th>
-            <Th isNumeric>
-              <Icon as={BsClock} />
-            </Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {songz?.map((song, index) => (
-            <Tr
-              className="trackz"
-              key={index}
-              onClick={() => clickHandler(index)}
-            >
-              <Td>{makeTableCell(song, index)}</Td>
-              <Td>
-                <Text casing="uppercase" fontSize="sm">
-                  {song.trackName}
-                </Text>
-              </Td>
-              <Td>
-                <Text fontSize="sm">{song.plays}</Text>
-              </Td>
-              <Td isNumeric>
-                <Text fontSize="sm">{song.duration}</Text>
-              </Td>
+      <Box p={4}>
+        <Table variant="simple" colorScheme="teal" p={4}>
+          <TableCaption>
+            <HStack justify="center">
+              <FaItunesNote />
+              <Text fontSize="md">Awesome muzic player</Text>
+            </HStack>
+          </TableCaption>
+          <Thead>
+            <Tr>
+              <Th>#</Th>
+              <Th>TITLE</Th>
+              <Th>PLAYS</Th>
+              <Th isNumeric>
+                <Icon as={BsClock} />
+              </Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {songz?.map((song, index) => (
+              <Tr
+                className="trackz"
+                key={index}
+                onClick={() => clickHandler(index)}
+              >
+                <Td w={1}>{makeTableCell(song, index)}</Td>
+                <Td>
+                  <Text casing="uppercase" fontSize="sm">
+                    {song.trackName}
+                  </Text>
+                </Td>
+                <Td>
+                  <Text fontSize="sm">{song.plays}</Text>
+                </Td>
+                <Td isNumeric>
+                  <Text fontSize="sm">{song.duration}</Text>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </Box>
     </Wrapper>
   );
 };

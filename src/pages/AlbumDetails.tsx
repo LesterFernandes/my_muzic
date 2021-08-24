@@ -5,6 +5,7 @@ import {
   Icon,
   IconButton,
   Image,
+  SkeletonText,
   Table,
   TableCaption,
   Tbody,
@@ -115,46 +116,52 @@ export const AlbumDetails: React.FC<AlbumDetailsProps> = ({}) => {
         </Box>
       </Box>
       <Box p={4}>
-        <Table variant="simple" colorScheme="teal" p={4}>
-          <TableCaption>
-            <HStack justify="center">
-              <FaItunesNote />
-              <Text fontSize="md">Awesome muzic player</Text>
-            </HStack>
-          </TableCaption>
-          <Thead>
-            <Tr>
-              <Th>#</Th>
-              <Th>TITLE</Th>
-              <Th>PLAYS</Th>
-              <Th isNumeric>
-                <Icon as={BsClock} />
-              </Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {songz?.map((song, index) => (
-              <Tr
-                className="trackz"
-                key={index}
-                onClick={() => clickHandler(index)}
-              >
-                <Td w={1}>{makeTableCell(song, index)}</Td>
-                <Td>
-                  <Text casing="uppercase" fontSize="sm">
-                    {song.trackName}
-                  </Text>
-                </Td>
-                <Td>
-                  <Text fontSize="sm">{song.plays}</Text>
-                </Td>
-                <Td isNumeric>
-                  <Text fontSize="sm">{song.duration}</Text>
-                </Td>
+        {songz && songz.length ? (
+          <Table variant="simple" colorScheme="teal" p={4}>
+            <TableCaption>
+              <HStack justify="center">
+                <FaItunesNote />
+                <Text fontSize="md">Awesome muzic player</Text>
+              </HStack>
+            </TableCaption>
+            <Thead>
+              <Tr>
+                <Th>#</Th>
+                <Th>TITLE</Th>
+                <Th>PLAYS</Th>
+                <Th isNumeric>
+                  <Icon as={BsClock} />
+                </Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {songz?.map((song, index) => (
+                <Tr
+                  className="trackz"
+                  key={index}
+                  onClick={() => clickHandler(index)}
+                >
+                  <Td w={1}>{makeTableCell(song, index)}</Td>
+                  <Td>
+                    <Text casing="uppercase" fontSize="sm">
+                      {song.trackName}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text fontSize="sm">{song.plays}</Text>
+                  </Td>
+                  <Td isNumeric>
+                    <Text fontSize="sm">{song.duration}</Text>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        ) : (
+          <Box padding="6" boxShadow="lg" bg="white">
+            <SkeletonText mt="4" noOfLines={6} spacing="4" />
+          </Box>
+        )}
       </Box>
     </Wrapper>
   );

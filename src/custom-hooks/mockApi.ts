@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import songzMocks from "../mocks/songz.json";
 
-const fakeApi = () => new Promise((resolve) => setTimeout(resolve, 1000));
+const fakeApi = () => new Promise((resolve) => setTimeout(resolve, 2000));
 
 const getMock = <T = unknown>(which: string): T | null => {
   switch (which) {
@@ -16,7 +16,7 @@ function useMockApi<T = unknown>(which: string): T | null {
   const [resp, setResp] = useState<T | null>(null);
   useEffect(() => {
     const fetchData = async () => {
-      fakeApi();
+      await fakeApi();
       const mock = getMock<T>(which);
       setResp(mock);
     };

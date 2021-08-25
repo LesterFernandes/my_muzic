@@ -20,7 +20,7 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 
-###Routes on the application
+### Routes on the application
 
 ## /
 Landing page - Displays a few featured & liked albums alongwith all genres(categories)

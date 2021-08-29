@@ -15,7 +15,7 @@ import {
 import _ from "lodash";
 //import { LOCALSTORAGE_LIKEDALBUMS } from "../constants";
 import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BsHeart, BsHeartFill, BsPlay } from "react-icons/bs";
@@ -38,6 +38,7 @@ interface SearchProps extends RouteComponentProps {
 
 export const Search: React.FC<SearchProps> = ({ history }) => {
   const filteredAlbums = useRecoilValue(filteredAlbumsState);
+  const [fAlbumz, setFAlbumz] = useState<IAlbum[]>([]);
   const selectedCategory = useRecoilValue(selCategory);
   const savedSelectedAlbum = useSetRecoilState(selAlbum);
   const [albums, setAlbums] = useRecoilState(albumsState);
@@ -55,6 +56,27 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
       localStorage.setItem(LOCALSTORAGE_LIKEDALBUMS, JSON.stringify(likedAlbums)); */
     };
   }, []);
+
+  useEffect(() => {
+    setFAlbumz(() => {
+      return filteredAlbums
+        .filter((album) => {
+          if (search.length) {
+            return album.name.toLowerCase().includes(search.toLowerCase());
+          }
+          return true;
+        })
+        .filter((album) => {
+          if (startDate && endDate) {
+            return moment(album.releaseDate).isBetween(
+              moment(startDate).format(),
+              moment(endDate).endOf("month").format()
+            );
+          }
+          return true;
+        });
+    });
+  }, [search, startDate, endDate, filteredAlbums, setFAlbumz]);
 
   const changeHandler = (e: any) => {
     setSearch(e.target.value);
@@ -135,24 +157,9 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
           </Grid>
         </Box>
       </Box>
-      <Wrap spacing="10px" justify="center" className="list">
-        {filteredAlbums
-          .filter((album) => {
-            if (search.length) {
-              return album.name.toLowerCase().includes(search.toLowerCase());
-            }
-            return true;
-          })
-          .filter((album) => {
-            if (startDate && endDate) {
-              return moment(album.releaseDate).isBetween(
-                moment(startDate).format(),
-                moment(endDate).endOf("month").format()
-              );
-            }
-            return true;
-          })
-          .map((album, index) => {
+      {fAlbumz.length ? (
+        <Wrap spacing="10px" justify="center" className="list">
+          {fAlbumz.map((album, index) => {
             return (
               <WrapItem key={index}>
                 <Box
@@ -165,7 +172,7 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
                   pos="relative"
                 >
                   <LazyLoad height={210} offset={10}>
-                    <Image src={album.image}/>
+                    <Image src={album.image} />
                   </LazyLoad>
                   <Grid templateColumns="repeat(5, 1fr)" gap={1}>
                     <GridItem colSpan={4}>
@@ -210,7 +217,12 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
               </WrapItem>
             );
           })}
-      </Wrap>
+        </Wrap>
+      ) : (
+        <Box mb={{ md: 17 }} p={4}>
+          <Text fontSize="2xl">No Albums found</Text>
+        </Box>
+      )}
     </Wrapper>
   );
 };

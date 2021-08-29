@@ -1,7 +1,16 @@
 import {
-  Box, Center, Grid,
-  GridItem, Heading, Icon, Image, Input, Text, Tooltip, Wrap,
-  WrapItem
+  Box,
+  Center,
+  Grid,
+  GridItem,
+  Heading,
+  Icon,
+  Image,
+  Input,
+  Text,
+  Tooltip,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import _ from "lodash";
 //import { LOCALSTORAGE_LIKEDALBUMS } from "../constants";
@@ -13,9 +22,15 @@ import { BsHeart, BsHeartFill, BsPlay } from "react-icons/bs";
 import LazyLoad from "react-lazyload";
 import { RouteComponentProps } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { albumsState, filteredAlbumsState, selAlbum, selCategory } from "../atoms";
+import {
+  albumsState,
+  filteredAlbumsState,
+  selAlbum,
+  selCategory,
+} from "../atoms";
 import { Wrapper } from "../components/Wrapper";
 import { IAlbum } from "../shared/interfaces";
+import debounce from "lodash.debounce";
 
 interface SearchProps extends RouteComponentProps {
   categoryId: string;
@@ -44,6 +59,8 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
   const changeHandler = (e: any) => {
     setSearch(e.target.value);
   };
+
+  const debouncedChangeHandler = useCallback(debounce(changeHandler, 300), []);
 
   const onLikeUnlike = (id: string, like: boolean) => {
     const copyAlbums = _.cloneDeep(albums);
@@ -77,11 +94,10 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
         <Box flexShrink={0}>
           <Input
             name="search"
-            value={search}
             focusBorderColor="teal.500"
             size="sm"
             maxW={400}
-            onChange={changeHandler}
+            onChange={debouncedChangeHandler}
           />
         </Box>
         <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
@@ -182,13 +198,12 @@ export const Search: React.FC<SearchProps> = ({ history }) => {
                       </Center>
                     </GridItem>
                   </Grid>
-                  <div className="overlay overlayFade" onClick={(e) => albumClickHandler(e, album)}>
+                  <div
+                    className="overlay overlayFade"
+                    onClick={(e) => albumClickHandler(e, album)}
+                  >
                     <Center h="inherit">
-                      <Icon
-                        boxSize={10}
-                        as={BsPlay}
-                        color="whiteAlpha.900"
-                      />
+                      <Icon boxSize={10} as={BsPlay} color="whiteAlpha.900" />
                     </Center>
                   </div>
                 </Box>

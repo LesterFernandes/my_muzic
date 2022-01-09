@@ -13,10 +13,10 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Runs the app in the development mode.
+ - [http://localhost:3000](http://localhost:3000) 
 
-### Routes on the application
+### Routes in the application
 
 ## /
 Landing page - Displays a few featured & liked albums alongwith all genres(categories)

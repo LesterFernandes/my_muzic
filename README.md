@@ -1,5 +1,6 @@
 # A Parody of a popular music player :p
-### Powered by Typescript, React (hooks) & Recoil
+### Powered by Typescript, React (hooks) & Recoil (experimenting with recoil)
+### noob react dev
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Installation
